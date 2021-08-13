@@ -16,14 +16,15 @@ import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
-  // const [userData, setUserData] = useState({});
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me || {};
+  const [user, setUserData] = useState(userData);
   const [removeBook] = useMutation(REMOVE_BOOK);
 
   // const userDataLength = Object.keys(userData).length;
 
-  console.log(userData.savedBooks);
+  console.log(data);
+  console.log(userData);
 
   // useEffect(() => {
   //   const getUserData = async () => {
