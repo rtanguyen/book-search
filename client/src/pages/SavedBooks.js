@@ -16,9 +16,9 @@ import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data } = useQuery(GET_ME, { fetchPolicy: "network-only" });
   const userData = data?.me || {};
-  const [user, setUserData] = useState(userData);
+  const [bookList, setBookList] = useState(userData.savedBooks);
   const [removeBook] = useMutation(REMOVE_BOOK);
 
   // const userDataLength = Object.keys(userData).length;
@@ -63,8 +63,12 @@ const SavedBooks = () => {
       const response = await removeBook({
         variables: { bookId: id },
       });
-      console.log(response);
+
       removeBookId(id);
+      // const updatedBooks;
+      console.log(response);
+      console.log(response.data);
+      // setBookList({...bookList}: {response.savedBooks})
     } catch (err) {
       console.error(err);
     }
